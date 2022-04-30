@@ -1,18 +1,26 @@
-import './App.css';
+import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
 
-import Home from './Pages/Home';
+import Home from "./pages/Home";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import NotFound from "./pages/NotFound";
+
+import Header from "./components/nav/Header";
 
 const App = () => {
   return (
-    <div className="App">
-		 <Routes>
-		 <Route path="/" element={<Home />} />
-        {/* <Route path="about" element={<About />} /> */}
-        {/* <Route path="*" element={<NotFound />} /> */}
-		 </Routes>
-    </div>
+    <>
+		<Header/>
+	 
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
-}
+};
 
 export default App;
