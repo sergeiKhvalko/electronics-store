@@ -18,7 +18,7 @@ const items = [
     label: "Username",
     key: "SubMenu",
     icon: <SettingOutlined />,
-    className: "me-auto",
+    className: "mr-auto",
     children: [
       {
         type: "group",
