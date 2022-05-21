@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { auth, googleAuthProvider } from "../../firebase";
 import {
   sendSignInLinkToEmail,
@@ -10,15 +10,22 @@ import { toast } from "react-toastify";
 import { Button } from "antd";
 import { GoogleOutlined, MailOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-  const [email, setEmail] = useState("sergei.khvalko@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const history = useNavigate();
 
   const dispatch = useDispatch();
+
+  const { user } = useSelector((state) => ({ ...state }));
+
+  useEffect(() => {
+    if (user && user.token) history("/");
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,7 +73,7 @@ const Login = () => {
   };
 
   const loginForm = () => (
-    <form onSubmit={handleSubmit}>
+    <form className="mb-0" onSubmit={handleSubmit}>
       <div className="form-group">
         <input
           type="email"
@@ -112,9 +119,9 @@ const Login = () => {
           {loginForm()}
 
           <Button
+            className="mb-2"
             onClick={googleLogin}
             type="danger"
-            className="mb-1"
             block
             shape="round"
             icon={<GoogleOutlined />}
@@ -122,6 +129,10 @@ const Login = () => {
           >
             Login with Google
           </Button>
+
+          <Link to="/forgot/password" className="text-danger float-right">
+            Forgot Password
+          </Link>
         </div>
       </div>
     </div>
