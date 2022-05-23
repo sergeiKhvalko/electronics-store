@@ -13,7 +13,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 
 const Header = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [current, setCurrent] = useState("home");
 
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const Header = () => {
       payload: null,
     });
 
-    history("/login");
+    navigate("/login");
   };
 
   const items = [
@@ -39,10 +39,10 @@ const Header = () => {
       label: <Link to="/">Home</Link>,
       key: "home",
       icon: <HomeOutlined />,
-		className: "mr-auto",
+      className: "mr-auto",
     },
     user && {
-      label: `${user.email && user.email.split('@')[0]}`,
+      label: `${user.email && user.email.split("@")[0]}`,
       key: "SubMenu",
       icon: <SettingOutlined />,
       children: [

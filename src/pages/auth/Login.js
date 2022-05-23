@@ -14,25 +14,25 @@ import { Link } from "react-router-dom";
 import { createOrUpdateUser } from "../../functions/auth";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("sergei.khvalko@gmail.com");
+  const [password, setPassword] = useState("1234567");
   const [loading, setLoading] = useState(false);
 
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
-    if (user && user.token) history("/");
+    if (user && user.token) navigate("/");
   }, [user]);
 
   const roleBasedRedirect = (res) => {
     if (res.data.role === "admin") {
-      history("/admin/dashboard");
+      navigate("/admin/dashboard");
     } else {
-      history("/user/history");
+      navigate("/user/history");
     }
   };
 
@@ -57,6 +57,7 @@ const Login = () => {
               _id: res.data._id,
             },
           });
+          console.log(res.data.role);
           roleBasedRedirect(res);
         })
         .catch((err) => console.log(err));
