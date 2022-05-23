@@ -14,8 +14,8 @@ import { Link } from "react-router-dom";
 import { createOrUpdateUser } from "../../functions/auth";
 
 const Login = () => {
-  const [email, setEmail] = useState("sergei.khvalko@gmail.com");
-  const [password, setPassword] = useState("1234567");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -25,8 +25,9 @@ const Login = () => {
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
+    console.log("effect");
     if (user && user.token) navigate("/");
-  }, [user]);
+  }, []);
 
   const roleBasedRedirect = (res) => {
     if (res.data.role === "admin") {
@@ -57,14 +58,12 @@ const Login = () => {
               _id: res.data._id,
             },
           });
-          console.log(res.data.role);
           roleBasedRedirect(res);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => toast.error(err));
 
       // history("/");
     } catch (error) {
-      console.log(error);
       toast.error(error.message);
       setLoading(false);
     }
@@ -89,7 +88,7 @@ const Login = () => {
             });
             roleBasedRedirect(res);
           })
-          .catch((err) => console.log(err));
+          .catch((err) => toast.error(err));
 
         //   history("/");
       })
