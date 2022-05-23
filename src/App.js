@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Header from "./components/nav/Header";
-import AppRouter from "./components/AppRouter";
+import AppRouter from "./router/AppRouter";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
