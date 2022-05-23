@@ -28,6 +28,14 @@ const Login = () => {
     if (user && user.token) history("/");
   }, [user]);
 
+  const roleBasedRedirect = (res) => {
+    if (res.data.role === "admin") {
+      history("/admin/dashboard");
+    } else {
+      history("/user/history");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -49,10 +57,11 @@ const Login = () => {
               _id: res.data._id,
             },
           });
+          roleBasedRedirect(res);
         })
         .catch((err) => console.log(err));
 
-      history("/");
+      // history("/");
     } catch (error) {
       console.log(error);
       toast.error(error.message);
@@ -77,10 +86,11 @@ const Login = () => {
                 _id: res.data._id,
               },
             });
+            roleBasedRedirect(res);
           })
           .catch((err) => console.log(err));
 
-        history("/");
+        //   history("/");
       })
       .catch((error) => {
         toast.error(error.message);
