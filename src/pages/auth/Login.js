@@ -14,8 +14,8 @@ import { Link } from "react-router-dom";
 import { createOrUpdateUser } from "../../functions/auth";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("sergei.khvalko@gmail.com");
+  const [password, setPassword] = useState("1234567");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Login = () => {
   useEffect(() => {
     console.log("effect");
     if (user && user.token) navigate("/");
-  }, []);
+  }, [navigate]);
 
   const roleBasedRedirect = (res) => {
     if (res.data.role === "admin") {

@@ -7,6 +7,7 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 import History from "../pages/user/History";
 import Password from "../pages/user/Password";
 import Wishlist from "../pages/user/Wishlist";
+import AdminDashboard from "../pages/admin/AdminDashboard";
 
 export const routes = [
   { path: "/", element: <Home /> },
@@ -17,5 +18,6 @@ export const routes = [
   { path: "/user/history", element: <History /> },
   { path: "/user/password", element: <Password /> },
   { path: "/user/wishlist", element: <Wishlist /> },
+  { path: "/admin/dashboard", element: <AdminDashboard /> },
   { path: "*", element: <NotFound /> },
 ];

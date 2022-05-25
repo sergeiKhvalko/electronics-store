@@ -9,13 +9,13 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
-    if (user && user.token) history("/");
-  }, [user]);
+    if (user && user.token) navigate("/");
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

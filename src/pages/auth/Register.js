@@ -8,12 +8,12 @@ import { useSelector } from "react-redux";
 const Register = () => {
   const [email, setEmail] = useState("");
 
-  const history = useNavigate();
+  const navigate = useNavigate();
   const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
-    if (user && user.token) history("/");
-  }, [user]);
+    if (user && user.token) navigate("/");
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,11 +39,11 @@ const Register = () => {
         className="form-control"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-		  placeholder='Your email'
+        placeholder="Your email"
         autoFocus
       />
 
-		<br/>
+      <br />
 
       <button type="submit" className="btn btn-raised mt-3">
         Register

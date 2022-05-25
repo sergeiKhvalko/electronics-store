@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { signInWithEmailLink, updatePassword } from "firebase/auth";
@@ -7,17 +7,16 @@ import { toast } from "react-toastify";
 import { createOrUpdateUser } from "../../functions/auth";
 
 const RegisterComplete = () => {
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     setEmail(window.localStorage.getItem("emailForRegistration"));
-  }, []);
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,7 +64,7 @@ const RegisterComplete = () => {
           .catch((err) => console.log(err));
 
         // redirect
-        history("/");
+        navigate("/");
       }
     } catch (error) {
       toast.error(error.message);
