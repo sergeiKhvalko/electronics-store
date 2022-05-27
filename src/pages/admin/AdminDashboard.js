@@ -1,33 +1,17 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import LoadingToRedirect from "../../components/LoadingToRedirect";
-import { currentAdmin } from "../../functions/auth";
+import AdminNav from "../../components/nav/AdminNav";
+import { WithAdminDashboard } from "../../hoc/WithAdminDashboard";
 
 const AdminDashboard = () => {
-  const [ok, setOk] = useState(false);
-  const { user } = useSelector((state) => ({ ...state }));
-
-  useEffect(() => {
-    if (user && user.token) {
-      currentAdmin(user.token)
-        .then((res) => {
-          console.log("Current Admin Res", res);
-          setOk(true);
-        })
-        .catch((err) => {
-          console.log("ADMIN ROUTE ERR", err);
-          setOk(false);
-        });
-    }
-  }, [user]);
-
-  return ok ? (
-    <>
-      <p>Admin dashboard</p>
-    </>
-  ) : (
-    <LoadingToRedirect />
+  return (
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-md-2">
+          <AdminNav />
+        </div>
+        <div className="col">admin dashboard page</div>
+      </div>
+    </div>
   );
 };
 
-export default AdminDashboard;
+export default WithAdminDashboard(AdminDashboard);

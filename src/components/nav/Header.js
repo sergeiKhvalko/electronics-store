@@ -49,12 +49,12 @@ const Header = () => {
         {
           type: "group",
           children: [
-            {
-              label: "Option 1",
+            user.role === "subscriber" && {
+              label: <Link to="/user/history">Dashboard</Link>,
               key: "setting:1",
             },
-            {
-              label: "Option 2",
+            user.role === "admin" && {
+              label: <Link to="/admin/dashboard">Dashboard</Link>,
               key: "setting:2",
             },
             {
