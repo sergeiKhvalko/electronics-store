@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import AdminNav from "../../../components/nav/AdminNav";
+import { WithAdminDashboard } from "../../../hoc/WithAdminDashboard";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import {
@@ -112,4 +113,4 @@ const CategoryCreate = () => {
   );
 };
 
-export default CategoryCreate;
+export default WithAdminDashboard(CategoryCreate);
