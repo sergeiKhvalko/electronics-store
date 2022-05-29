@@ -4,7 +4,8 @@ import { WithAdminDashboard } from "../../../hoc/WithAdminDashboard";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { getCategory, updateCategory } from "../../../functions/category";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import CategoryForm from "../../../components/forms/CategoryForm";
 
 const CategoryUpdate = () => {
   const navigate = useNavigate();
@@ -37,40 +38,6 @@ const CategoryUpdate = () => {
       });
   };
 
-  //   const handleUpdate = async (slug) => {
-  //     setLoading(true);
-  //     updateCategory(slug, user.token)
-  //       .then((res) => {
-  //         setLoading(false);
-  //         toast.success(`${res.data.name} updated`);
-  //         loadCategories();
-  //       })
-  //       .catch((err) => {
-  //         if (err.response.status === 400) {
-  //           setLoading(false);
-  //           toast.error(err.response.data);
-  //         }
-  //       });
-  //   };
-
-  const categoryForm = () => (
-    <form onSubmit={handleSubmit}>
-      <div className="form-group">
-        <label>Name</label>
-        <input
-          type="text"
-          className="form-control"
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-          autoFocus
-          required
-        />
-        <br />
-        <button className="btn btn-outline-primary">Save</button>
-      </div>
-    </form>
-  );
-
   return (
     <div className="container-fluid">
       <div className="row">
@@ -83,7 +50,13 @@ const CategoryUpdate = () => {
           ) : (
             <h4>Update category</h4>
           )}
-          {categoryForm()}
+
+          <CategoryForm
+            handleSubmit={handleSubmit}
+            name={name}
+            setName={setName}
+          />
+
           <hr />
         </div>
       </div>
