@@ -10,6 +10,7 @@ import Wishlist from "../pages/user/Wishlist";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import CategoryCreate from "../pages/admin/category/CategoryCreate";
 import CategoryUpdate from "../pages/admin/category/CategoryUpdate";
+import SubCreate from "../pages/admin/sub/SubCreate";
 
 export const routes = [
   { path: "/", element: <Home /> },
@@ -23,5 +24,6 @@ export const routes = [
   { path: "/admin/dashboard", element: <AdminDashboard /> },
   { path: "/admin/category", element: <CategoryCreate /> },
   { path: "/admin/category/:slug", element: <CategoryUpdate /> },
+  { path: "/admin/sub", element: <SubCreate /> },
   { path: "*", element: <NotFound /> },
 ];
