@@ -1,13 +1,14 @@
-import { useState, useEffect } from "react";
 import AdminNav from "../../../components/nav/AdminNav";
 import { WithAdminDashboard } from "../../../hoc/WithAdminDashboard";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { getCategory, updateCategory } from "../../../functions/category";
-import { useParams, useNavigate } from "react-router-dom";
+import { getCategories } from "../../../functions/category";
+import { getSub, updateSub } from "../../../functions/sub";
 import CategoryForm from "../../../components/forms/CategoryForm";
+import { useParams, useNavigate } from "react-router-dom";
 
-const CategoryUpdate = () => {
+const SubUpdate = () => {
   const { user } = useSelector((state) => ({ ...state }));
 
   const navigate = useNavigate();
@@ -15,23 +16,32 @@ const CategoryUpdate = () => {
 
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [parent, setParent] = useState("");
 
   useEffect(() => {
-    loadCategory();
+    loadCategories();
+    loadSub();
   }, []);
 
-  const loadCategory = () =>
-    getCategory(slug).then((c) => setName(c.data.name));
+  const loadCategories = () =>
+    getCategories().then((c) => setCategories(c.data));
+
+  const loadSub = () =>
+    getSub(slug).then((s) => {
+      setName(s.data.name);
+      setParent(s.data.parent);
+    });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    updateCategory(slug, { name }, user.token)
+    updateSub(slug, { name, parent }, user.token)
       .then((res) => {
         setLoading(false);
         setName("");
         toast.success(`${res.data.name} is updated`);
-        navigate("/admin/category");
+        navigate("/admin/sub");
       })
       .catch((err) => {
         setLoading(false);
@@ -49,20 +59,35 @@ const CategoryUpdate = () => {
           {loading ? (
             <h4 className="text-danger">Loading...</h4>
           ) : (
-            <h4>Update category</h4>
+            <h4>Update sub category</h4>
           )}
 
+          <div className="form-group">
+            <label>Parent category</label>
+            <select
+              name="category"
+              className="form-control"
+              onChange={(e) => setParent(e.target.value)}
+              value={parent}
+            >
+              <option>Please select</option>
+              {categories.length > 0 &&
+                categories.map((c) => (
+                  <option key={c._id} value={c._id}>
+                    {c.name}
+                  </option>
+                ))}
+            </select>
+          </div>
           <CategoryForm
             handleSubmit={handleSubmit}
             name={name}
             setName={setName}
           />
-
-          <hr />
         </div>
       </div>
     </div>
   );
 };
 
-export default WithAdminDashboard(CategoryUpdate);
+export default WithAdminDashboard(SubUpdate);

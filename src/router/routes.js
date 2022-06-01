@@ -11,6 +11,7 @@ import AdminDashboard from "../pages/admin/AdminDashboard";
 import CategoryCreate from "../pages/admin/category/CategoryCreate";
 import CategoryUpdate from "../pages/admin/category/CategoryUpdate";
 import SubCreate from "../pages/admin/sub/SubCreate";
+import SubUpdate from "../pages/admin/sub/SubUpdate";
 
 export const routes = [
   { path: "/", element: <Home /> },
@@ -25,5 +26,6 @@ export const routes = [
   { path: "/admin/category", element: <CategoryCreate /> },
   { path: "/admin/category/:slug", element: <CategoryUpdate /> },
   { path: "/admin/sub", element: <SubCreate /> },
+  { path: "/admin/sub/:slug", element: <SubUpdate /> },
   { path: "*", element: <NotFound /> },
 ];

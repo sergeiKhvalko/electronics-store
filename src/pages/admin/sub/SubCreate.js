@@ -4,21 +4,21 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { getCategories } from "../../../functions/category";
-import { createSub, getSubs, getSub, removeSub } from "../../../functions/sub";
+import { createSub, getSubs, removeSub } from "../../../functions/sub";
 import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
 
 const SubCreate = () => {
+  const { user } = useSelector((state) => ({ ...state }));
+
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [keyword, setKeyword] = useState("");
   const [category, setCategory] = useState("");
+  const [categories, setCategories] = useState([]);
   const [subs, setSubs] = useState([]);
-
-  const { user } = useSelector((state) => ({ ...state }));
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     loadCategories();
@@ -28,7 +28,7 @@ const SubCreate = () => {
   const loadCategories = () =>
     getCategories().then((c) => setCategories(c.data));
 
-  const loadSubs = () => getSubs().then((c) => setSubs(c.data));
+  const loadSubs = () => getSubs().then((s) => setSubs(s.data));
 
   const handleSubmit = (e) => {
     e.preventDefault();
