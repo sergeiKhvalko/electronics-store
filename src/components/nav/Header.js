@@ -79,12 +79,14 @@ const Header = () => {
   ];
 
   return (
-    <Menu
-      onClick={handleClick}
-      selectedKeys={[current]}
-      mode="horizontal"
-      items={items}
-    />
+		<header style={{flex: "0 0 auto"}}>
+			<Menu
+				onClick={handleClick}
+				selectedKeys={[current]}
+				mode="horizontal"
+				items={items}
+			/>
+		</header>
   );
 };
 

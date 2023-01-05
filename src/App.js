@@ -1,8 +1,9 @@
-import "./App.css";
+import "./App.scss";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Header from "./components/nav/Header";
+import Footer from "./components/footer/Footer";
 import AppRouter from "./router/AppRouter";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
@@ -38,11 +39,18 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <Header />
-      <ToastContainer />
-      <AppRouter />
-    </>
+		<div className="MainWrapper">
+			<div className="MainLayout">
+				<Header />
+				<ToastContainer />
+
+				<main style={{flex: "1 0 auto", padding: "40px 0"}}>
+					<AppRouter />
+				</main>
+
+				<Footer/>
+			</div>
+    </div>
   );
 };
 
