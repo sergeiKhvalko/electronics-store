@@ -58,4 +58,4 @@ const NewArrivals = () => {
 	)
 }
 
-export default NewArrivals
+export default NewArrivals;
