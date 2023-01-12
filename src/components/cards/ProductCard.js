@@ -52,7 +52,7 @@ const ProductCard = ({product}) => {
 				cover={
 					<img
 						src={images?.length ? images[0].url : noImage}
-						alt={product.slug}
+						alt={slug}
 						style={{height: "150px", objectFit: "contain"}}
 						className="p-1"
 					/>

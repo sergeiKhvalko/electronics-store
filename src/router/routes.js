@@ -9,6 +9,7 @@ import History from "../pages/user/History";
 import Password from "../pages/user/Password";
 import Wishlist from "../pages/user/Wishlist";
 import AdminDashboard from "../pages/admin/AdminDashboard";
+import AllProducts from "../pages/admin/products/AllProducts";
 import CategoryCreate from "../pages/admin/category/CategoryCreate";
 import CategoryUpdate from "../pages/admin/category/CategoryUpdate";
 import SubCreate from "../pages/admin/sub/SubCreate";
@@ -25,6 +26,7 @@ export const routes = [
   { path: "/user/password", element: <Password /> },
   { path: "/user/wishlist", element: <Wishlist /> },
   { path: "/admin/dashboard", element: <AdminDashboard /> },
+  { path: "/admin/products", element: <AllProducts /> },
   { path: "/admin/category", element: <CategoryCreate /> },
   { path: "/admin/category/:slug", element: <CategoryUpdate /> },
   { path: "/admin/sub", element: <SubCreate /> },
