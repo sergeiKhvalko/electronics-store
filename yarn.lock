@@ -9028,6 +9028,11 @@ react-event-listener@^0.6.2, react-event-listener@^0.6.6:
     prop-types "^15.6.0"
     warning "^4.0.1"
 
+react-image-file-resizer@^0.4.8:
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/react-image-file-resizer/-/react-image-file-resizer-0.4.8.tgz#85f4ae4469fd2867d961568af660ef403d7a79af"
+  integrity sha512-Ue7CfKnSlsfJ//SKzxNMz8avDgDSpWQDOnTKOp/GNRFJv4dO9L5YGHNEnj40peWkXXAK2OK0eRIoXhOYpUzUTQ==
+
 react-image-lightbox@5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/react-image-lightbox/-/react-image-lightbox-5.1.1.tgz#872d1a4336b5a6410ea7909b767cf59014081004"
