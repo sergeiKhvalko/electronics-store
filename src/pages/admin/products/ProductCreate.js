@@ -3,6 +3,11 @@ import { WithAdminDashboard } from "../../../hoc/WithAdminDashboard";
 import AdminNav from "../../../components/nav/AdminNav";
 import { LoadingOutlined } from "@ant-design/icons";
 import FileUpload from "../../../components/forms/FileUpload";
+import ProductCreateForm from "../../../components/forms/ProductCreateForm";
+import { useSelector } from "react-redux";
+import { getCategories, getCategorySubs } from "../../../functions/category";
+import { createProduct } from "../../../functions/product";
+import { toast } from "react-toastify";
 
 
 /**
@@ -52,6 +57,41 @@ const ProductCreate = () => {
 	const [showSub, setShowSub] = useState(false);
 	const [subOptions, setSubOptions] = useState([]);
 
+	const { user } = useSelector((state) => ({ ...state }));
+
+	useEffect(() => {
+		loadCategories();
+	}, []);
+
+	const loadCategories = () => {
+		getCategories().then((res) => setValues({ ...values, categories: res.data }))
+	}
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		createProduct(values, user.token)
+			.then((res) => {
+				toast.success(`"${res.data.title}" is created`);
+				window.location.reload();
+			})
+			.catch((err) => {
+				toast.error(err.response.data.err);
+			})
+	}
+
+	const handleChange = (e) => {
+		setValues({ ...values, [e.target.name]: e.target.value });
+	};
+
+	const handleCategoryChange = (e) => {
+		e.preventDefault();
+		setValues({ ...values, subs: [], category: e.target.value });
+		getCategorySubs(e.target.value).then((res) => {
+			setSubOptions(res.data);
+		})
+		setShowSub(true);
+	}
+
 
 	return (
 		<div className="container-fluid">
@@ -75,6 +115,16 @@ const ProductCreate = () => {
 							setLoading={setLoading}
 						/>
 					</div>
+
+					<ProductCreateForm
+						values={values}
+						setValues={setValues}
+						showSub={showSub}
+						subOptions={subOptions}
+						handleSubmit={handleSubmit}
+						handleChange={handleChange}
+						handleCategoryChange={handleCategoryChange}
+					/>
 				</div>
 			</div>
 		</div>
