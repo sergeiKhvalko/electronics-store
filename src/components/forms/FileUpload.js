@@ -1,8 +1,8 @@
 import Resizer from "react-image-file-resizer";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { Badge, Avatar } from "antd";
 import { toast } from "react-toastify";
+import { removeImage, uploadImages } from "../../functions/images";
 
 const FileUpload = ({ values, setValues, setLoading }) => {
 	const { user } = useSelector((state) => ({ ...state }));
@@ -20,17 +20,9 @@ const FileUpload = ({ values, setValues, setLoading }) => {
 					720,
 					"JPEG",
 					100,
+					0,
 					(uri) => {
-						axios
-							.post(
-								`${process.env.REACT_APP_API}/uploadimages`,
-								{ image: uri },
-								{
-									headers: {
-										authtoken: user ? user.token : "",
-									},
-								}
-							)
+						uploadImages(uri, user)
 							.then((res) => {
 								setLoading(false);
 								allUploadedFiles.push(res.data);
@@ -49,26 +41,19 @@ const FileUpload = ({ values, setValues, setLoading }) => {
 
 	const handleImageRemove = (public_id) => {
 		setLoading(true);
-		axios.post(`${process.env.REACT_APP_API}/removeimage`,
-		{ public_id },
-		{
-			headers: {
-				authtoken: user ? user.token : ""
-			},
-		}
-		)
-		.then((res) => {
-			setLoading(false);
-			const { images } = values;
-			const filteredImages = images.filter((item) => {
-				return item.public_id !== public_id;
-			});
-			setValues({ ...values, images: filteredImages });
-		})
-		.catch((err) => {
-			setLoading(false);
-			toast(err);
-		})
+		removeImage(public_id, user)
+			.then((res) => {
+				setLoading(false);
+				const { images } = values;
+				const filteredImages = images.filter((item) => {
+					return item.public_id !== public_id;
+				});
+				setValues({ ...values, images: filteredImages });
+			})
+			.catch((err) => {
+				setLoading(false);
+				toast(err);
+			})
 	}
 
 	return (
