@@ -9,6 +9,7 @@ export const WithAdminDashboard = (Component) => {
     const { user } = useSelector((state) => ({ ...state }));
     useLayoutEffect(() => {
       if (user && user.token && user.role === "admin") {
+				setOk(true);
         currentAdmin(user.token)
           .then((res) => {
             setOk(res.data.role === "admin");
