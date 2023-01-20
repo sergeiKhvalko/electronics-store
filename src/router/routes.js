@@ -3,8 +3,8 @@ import Shop from "../pages/Shop";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import RegisterComplete from "../pages/auth/RegisterComplete";
-import NotFound from "../pages/NotFound";
 import ForgotPassword from "../pages/auth/ForgotPassword";
+import Product from "../pages/Product";
 import History from "../pages/user/History";
 import Password from "../pages/user/Password";
 import Wishlist from "../pages/user/Wishlist";
@@ -16,6 +16,7 @@ import CategoryCreate from "../pages/admin/category/CategoryCreate";
 import CategoryUpdate from "../pages/admin/category/CategoryUpdate";
 import SubCreate from "../pages/admin/sub/SubCreate";
 import SubUpdate from "../pages/admin/sub/SubUpdate";
+import NotFound from "../pages/NotFound";
 
 export const routes = [
   { path: "/", element: <Home /> },
@@ -24,6 +25,7 @@ export const routes = [
   { path: "/register", element: <Register /> },
   { path: "/register/complete", element: <RegisterComplete /> },
   { path: "/forgot/password", element: <ForgotPassword /> },
+  { path: "/product/:slug", element: <Product /> },
   { path: "/user/history", element: <History /> },
   { path: "/user/password", element: <Password /> },
   { path: "/user/wishlist", element: <Wishlist /> },
