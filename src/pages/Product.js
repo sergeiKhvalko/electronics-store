@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getProduct, getProducts, getRelated } from "../functions/product";
+import { getProduct, getProducts, getRelated, productStar } from "../functions/product";
 import ProductCard from "../components/cards/ProductCard";
 import SingleProduct from "../components/cards/SingleProduct";
 
@@ -34,8 +34,12 @@ const Product = () => {
 		})
 	}
 
-	const onStarClick = () => {
-		
+	const onStarClick = (newRating, productId) => {
+		setStar(newRating);
+		productStar(productId, newRating, user.token).then((res) => {
+			console.log("rating clicked", res.data);
+			loadSingleProduct(); // if you want to show updated rating in real time
+		})
 	}
 
 	return (
