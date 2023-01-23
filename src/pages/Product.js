@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { getProduct, getRelated } from "../functions/product";
 import ProductCard from "../components/cards/ProductCard";
 import SingleProduct from "../components/cards/SingleProduct";
 
@@ -11,7 +12,18 @@ const Product = () => {
 
 	const { user } = useSelector((state) => ({ ...state }));
 
-	const { params } = useNavigate();
+	const { slug } = useParams();
+
+	useEffect(() => {
+		loadSingleProduct();
+	}, [slug]);
+
+	const loadSingleProduct = () => {
+		getProduct(slug).then((res) => {
+			setProduct(res.data);
+			getRelated(res.data._id).then((res) => setRealated(res.data));
+		})
+	}
 
 	const onStarClick = () => {
 
