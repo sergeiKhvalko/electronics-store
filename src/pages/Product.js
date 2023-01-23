@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getProduct, getRelated } from "../functions/product";
+import { getProduct, getProducts, getRelated } from "../functions/product";
 import ProductCard from "../components/cards/ProductCard";
 import SingleProduct from "../components/cards/SingleProduct";
 
@@ -18,6 +18,15 @@ const Product = () => {
 		loadSingleProduct();
 	}, [slug]);
 
+	useEffect(() => {
+		if(product.ratings && user) {
+			let existingRatingObject = product.ratings.find(
+				(item) => item.postedBy.toString() === user._id.toString()
+			);
+			existingRatingObject && setStar(existingRatingObject.star) // current users star
+		}
+	});
+
 	const loadSingleProduct = () => {
 		getProduct(slug).then((res) => {
 			setProduct(res.data);
@@ -26,7 +35,7 @@ const Product = () => {
 	}
 
 	const onStarClick = () => {
-
+		
 	}
 
 	return (
