@@ -37,7 +37,6 @@ const Product = () => {
 	const onStarClick = (newRating, productId) => {
 		setStar(newRating);
 		productStar(productId, newRating, user.token).then((res) => {
-			console.log("rating clicked", res.data);
 			loadSingleProduct(); // if you want to show updated rating in real time
 		})
 	}

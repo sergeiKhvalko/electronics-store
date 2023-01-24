@@ -10,6 +10,7 @@ import { showAverage } from "../../functions/rating";
 import { HeartFilled, HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import StarRating from "react-star-ratings";
 import RatingModal from "../modal/RatingModal";
+import ProductListItems from "./ProductListItems";
 
 
 const SingleProduct = ({ product, onStarClick, star }) => {
@@ -137,7 +138,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
             </RatingModal>,
 					]}
 				>
-
+					<ProductListItems product={product} />
 				</Card>
 			</div>
 		</>
