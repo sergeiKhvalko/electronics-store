@@ -11,6 +11,8 @@ import { HeartFilled, HeartOutlined, ShoppingCartOutlined } from "@ant-design/ic
 import StarRating from "react-star-ratings";
 import RatingModal from "../modal/RatingModal";
 import ProductListItems from "./ProductListItems";
+import { toast } from "react-toastify";
+import { addToWishlist, removeFromWishlist } from "../../functions/user";
 
 
 const SingleProduct = ({ product, onStarClick, star }) => {
@@ -54,12 +56,28 @@ const SingleProduct = ({ product, onStarClick, star }) => {
 		}
 	};
 
-	const handleAddToWishlist = () => {
-		
+	const handleAddToWishlist = (e) => {
+		e.preventDefault();
+		if(!user?.token) {
+			toast.error("Please login first");
+			navigate("/login");
+			return;
+		}
+		addToWishlist(product._id, user.token).then((res) => {
+			setWishlist(res.data.ok);
+		})
 	}
 
-	const handleRemoveFromWishlist = () => {
-
+	const handleRemoveFromWishlist = (e) => {
+		e.preventDefault();
+		if(!user?.token) {
+			toast.error("Please login first");
+			navigate("/login");
+			return;
+		}
+		removeFromWishlist(product._id, user.token).then((res) => {
+			setWishlist(res.data.ok);
+		})
 	}
 
 
@@ -116,7 +134,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
 							</a>
 						</Tooltip>,
 
-						wishlist ? (
+						wishlist === true ? (
 							<a onClick={handleRemoveFromWishlist}>
 								<HeartFilled className="text-info" /> <br /> Remove from Wishlist
 							</a>
@@ -125,19 +143,20 @@ const SingleProduct = ({ product, onStarClick, star }) => {
 								<HeartOutlined className="text-info" /> <br /> Add to Wishlist
 							</a>
 						),
-
+						
 						<RatingModal>
-              <StarRating
-                name={_id}
-                numberOfStars={5}
-                rating={star}
-                changeRating={onStarClick}
-                isSelectable={true}
-                starRatedColor="red"
-              />
-            </RatingModal>,
+							<StarRating
+								name={_id}
+								numberOfStars={5}
+								rating={star}
+								changeRating={onStarClick}
+								isSelectable={true}
+								starRatedColor="red"
+							/>
+						</RatingModal>,
 					]}
 				>
+					{console.log(wishlist)}
 					<ProductListItems product={product} />
 				</Card>
 			</div>
