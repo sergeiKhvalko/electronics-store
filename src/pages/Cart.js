@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { userCart } from "../functions/user";
+import ProductCartInCheckout from "../components/cards/ProductCartInCheckout";
 
 const Cart = () => {
 	const { cart, user } = useSelector((state) => ({ ...state }));
@@ -49,9 +50,9 @@ const Cart = () => {
 				</tr>
 			</thead>
 
-			{/* {cart.map((p) => (
+			{cart.map((p) => (
 				<ProductCartInCheckout key={p._id} p={p} />
-			))} */}
+			))}
 		</table>
 	)
 	
